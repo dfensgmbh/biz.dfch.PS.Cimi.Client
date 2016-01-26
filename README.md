@@ -4,3 +4,13 @@
 [![Version](https://img.shields.io/nuget/v/biz.dfch.PS.Cimi.Client.svg)](https://www.nuget.org/packages/biz.dfch.PS.Cimi.Client/)
 
 Powershell client for the Swisscom Enterprise Cloud CIMI API
+
+Assembly: biz.dfch.PS.Cimi.Client
+
+d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
+
+## Download
+
+* Get it on [NuGet](https://www.nuget.org/packages/biz.dfch.PS.Cimi.Client/)
+
+* See [Releases](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/releases) and [Tags](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/tags) on [GitHub](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client)
