@@ -5,7 +5,7 @@
 
 Powershell client for the Swisscom Enterprise Cloud CIMI API
 
-Assembly: biz.dfch.PS.Cimi.Client
+Module: biz.dfch.PS.Cimi.Client
 
 d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 
