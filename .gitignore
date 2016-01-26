@@ -234,3 +234,8 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+it/Credentials*.xml
+src/*.dll
+src/log4net.xml
+src/Newtonsoft.Json.xml
+it/*

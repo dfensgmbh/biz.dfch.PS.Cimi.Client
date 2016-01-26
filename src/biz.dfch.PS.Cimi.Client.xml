@@ -1,0 +1,54 @@
+﻿<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>Deserialized.System.Collections.Hashtable</T>
+      <T>Deserialized.System.Object</T>
+    </TN>
+    <DCT>
+      <En>
+        <S N="Key">Format</S>
+        <S N="Value">JSON</S>
+      </En>
+      <En>
+        <S N="Key">Credential</S>
+        <Nil N="Value" />
+      </En>
+      <En>
+        <S N="Key">CimiVersion</S>
+        <S N="Value">v2</S>
+      </En>
+      <En>
+        <S N="Key">OAuthBaseUrl</S>
+        <URI N="Value">https://cimi/openam/oauth2</URI>
+      </En>
+      <En>
+        <S N="Key">ApiBrokerBaseUrl</S>
+        <URI N="Value">https://cimi/</URI>
+      </En>
+      <En>
+        <S N="Key">TenantId</S>
+        <S N="Value">11111111-1111-1111-1111-111111111111</S>
+      </En>
+      <En>
+        <S N="Key">TotalAttempts</S>
+		<I32 N="Value">5</I32>
+      </En>
+      <En>
+        <S N="Key">BaseWaitingMilliseconds</S>
+		<I32 N="Value">5000</I32>
+      </En>
+      <En>
+        <S N="Key">JobTimeOut</S>
+		<I32 N="Value">10000</I32>
+      </En>
+      <En>
+        <S N="Key">CloudEntryPoint</S>
+        <Nil N="Value" />
+      </En>
+      <En>
+        <S N="Key">Service</S>
+        <Nil N="Value" />
+      </En>
+    </DCT>
+  </Obj>
+</Objs>

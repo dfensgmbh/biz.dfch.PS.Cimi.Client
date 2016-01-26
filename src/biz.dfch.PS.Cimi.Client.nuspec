@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>biz.dfch.PS.Cimi.Client</id>
-    <version>1.0.0</version>
+    <version>1.0.11</version>
     <title>biz.dfch.PS.Cimi.Client</title>
     <authors>d-fens GmbH</authors>
     <owners>Ronald Rink</owners>
@@ -25,7 +25,7 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 * See [Releases](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/releases) and [Tags](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/tags) on [GitHub](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client)
 </description>
     <summary>Powershell client for the Swisscom Enterprise Cloud CIMI API</summary>
-    <releaseNotes>20160131
+    <releaseNotes>20160126
 * Initial release</releaseNotes>
     <copyright>(c) 2016 d-fens GmbH</copyright>
     <language>en-US</language>
@@ -33,10 +33,29 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
     <dependencies>
       <dependency id="biz.dfch.PS.System.Logging" version="1.1.4" />
       <dependency id="biz.dfch.PS.System.Utilities" version="1.0.9" />
+      <dependency id="biz.dfch.CS.Cimi.Client" version="1.0.11" />	 
     </dependencies>
   </metadata>
   <files xmlns="">
-    <file src="..\packages\biz.dfch.CS.Cimi.Client.1.0.11\lib\biz.dfch.CS.Cimi.Client.dll" target="tools\biz.dfch.CS.Cimi.Client.dll" />
-    <file src="..\packages\biz.dfch.CS.Cimi.Client.1.0.11\lib\biz.dfch.CS.Cimi.Client.Model.dll" target="tools\biz.dfch.CS.Cimi.Client.Model.dll" />
+    <file src="biz.dfch.PS.Cimi.Client.psm1" target="tools\biz.dfch.PS.Cimi.Client.psm1" />
+    <file src="biz.dfch.PS.Cimi.Client.psd1" target="tools\biz.dfch.PS.Cimi.Client.psd1" />
+    <file src="biz.dfch.PS.Cimi.Client.xml" target="tools\biz.dfch.PS.Cimi.Client.xml" />
+    <file src="Install.ps1" target="Install.ps1" />
+    <file src="Enter-Server.ps1" target="tools\Enter-Server.ps1" />
+    <file src="Stop-Machine.ps1" target="tools\Stop-Machine.ps1" />
+    <file src="Start-Machine.ps1" target="tools\Start-Machine.ps1" />
+    <file src="Get-Machine.ps1" target="tools\Get-Machine.ps1" />
+    <file src="Get-System.ps1" target="tools\Get-System.ps1" />
+    <file src="..\LICENSE" target="tools\LICENSE" />
+    <file src="..\NOTICE" target="tools\NOTICE" />
+    <file src="..\README.md" target="tools\README.md" />
+	<file src="..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll" target="tools\Newtonsoft.Json.dll" />
+	<file src="..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.xml" target="tools\Newtonsoft.Json.xml" />
+	<file src="..\packages\log4net.2.0.3\lib\net40-full\log4net.dll" target="tools\log4net.dll" />
+	<file src="..\packages\log4net.2.0.3\lib\net40-full\log4net.xml" target="tools\log4net.xml" />
+	<file src="..\packages\biz.dfch.CS.System.Utilities.2.0.0\lib\biz.dfch.CS.System.Utilities.dll" target="tools\biz.dfch.CS.System.Utilities.dll" />
+	<file src="..\packages\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.1.0.6\lib\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.dll" target="tools\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.dll" />
+	<file src="..\packages\biz.dfch.CS.Cimi.Client.1.0.11\lib\biz.dfch.CS.Cimi.Client.dll" target="tools\biz.dfch.CS.Cimi.Client.dll" />
+	<file src="..\packages\biz.dfch.CS.Cimi.Client.1.0.11\lib\biz.dfch.CS.Cimi.Client.Model.dll" target="tools\biz.dfch.CS.Cimi.Client.Model.dll" />
   </files>
 </package>
