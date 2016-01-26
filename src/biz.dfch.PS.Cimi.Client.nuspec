@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>biz.dfch.PS.Cimi.Client</id>
+    <version>1.0.0</version>
+    <title>biz.dfch.PS.Cimi.Client</title>
+    <authors>d-fens GmbH</authors>
+    <owners>Ronald Rink</owners>
+    <licenseUrl>https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/dfensgmbh/biz.dfch.PS.Cimi.Client/master/logo-32x32.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>=============================
+
+Powershell client for the Swisscom Enterprise Cloud CIMI API
+	
+Module: biz.dfch.PS.Cimi.Client
+
+d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
+
+## Download
+
+* Get it on [NuGet](https://www.nuget.org/packages/biz.dfch.PS.Cimi.Client/)
+
+* See [Releases](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/releases) and [Tags](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/tags) on [GitHub](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client)
+</description>
+    <summary>Powershell client for the Swisscom Enterprise Cloud CIMI API</summary>
+    <releaseNotes>20160131
+* Initial release</releaseNotes>
+    <copyright>(c) 2016 d-fens GmbH</copyright>
+    <language>en-US</language>
+    <tags>dfch PowerShell Cimi</tags>
+    <dependencies>
+      <dependency id="biz.dfch.PS.System.Logging" version="1.1.4" />
+      <dependency id="biz.dfch.PS.System.Utilities" version="1.0.9" />
+    </dependencies>
+  </metadata>
+  <files xmlns="">
+    <file src="..\packages\biz.dfch.CS.Cimi.Client.1.0.11\lib\biz.dfch.CS.Cimi.Client.dll" target="tools\biz.dfch.CS.Cimi.Client.dll" />
+    <file src="..\packages\biz.dfch.CS.Cimi.Client.1.0.11\lib\biz.dfch.CS.Cimi.Client.Model.dll" target="tools\biz.dfch.CS.Cimi.Client.Model.dll" />
+  </files>
+</package>
