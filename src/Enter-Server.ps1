@@ -126,7 +126,8 @@ try
 	
 	$Uri = $OAuthBaseUrl.AbsoluteUri.Trim('/');
 	$Username = $OAuthClientId;
-	$o = New-Object biz.dfch.CS.Cimi.Client.$CimiVersion.CimiClient;
+	#$o = New-Object biz.dfch.CS.Cimi.Client.$CimiVersion.CimiClient;
+	$o = [biz.dfch.CS.Cimi.Client.CimiClientFactory]::GetByVersion($CimiVersion);
 	$o.JobTimeOut = $JobTimeOut;
 	$c = $o.Login($Uri, $Username, $OAuthClientSecret, $AccessRefreshToken, $ApiBrokerBaseUrl.AbsoluteUri.Trim('/'), $TenantId, $TotalAttempts, $BaseWaitingMilliseconds);
 	(Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).CloudEntryPoint = $c;
