@@ -51,6 +51,9 @@ Param
 	[switch] $ListAvailable
 	,
 	[Parameter(Mandatory = $false)]
+	$TenantId
+	,
+	[Parameter(Mandatory = $false)]
 	[int] $TotalAttempts = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).TotalAttempts
 	,
 	[Parameter(Mandatory = $false)]
@@ -85,6 +88,11 @@ PROCESS
     [Boolean] $fReturn = $false;
     # Return values are always and only returned via OutputParameter.
     $OutputParameter = $null;
+	
+    if(!$PSBoundParameters.ContainsKey('TenantId'))
+    {
+		$svc.TenantId = $TenantId;
+	}
 	
 	$invokeAction = 'GetSystem';
 	if($PSCmdlet.ParameterSetName -eq 'list') 
