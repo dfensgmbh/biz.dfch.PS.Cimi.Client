@@ -81,7 +81,7 @@ Param
 	[string] $OAuthClientSecret
 	,
 	[Parameter(Mandatory = $false, Position = 4)]
-	[string] $AccessRefreshToken
+	[string] $AccessRefreshToken = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).AccessRefreshToken
 	,
 	[Parameter(Mandatory = $false, Position = 5)]
 	$TenantId = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).TenantId

@@ -14,6 +14,10 @@
         <Nil N="Value" />
       </En>
       <En>
+        <S N="Key">AccessRefreshToken</S>
+        <Nil N="Value" />
+      </En>
+      <En>
         <S N="Key">CimiVersion</S>
         <S N="Value">v2</S>
       </En>
