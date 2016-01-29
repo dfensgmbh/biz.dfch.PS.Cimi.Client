@@ -121,7 +121,7 @@ try
 	{
 		Contract-Assert(!!$Credential.UserName);
 		$OAuthClientId = $Credential.GetNetworkCredential().Username;
-		$OAuthClientSecret = $Credential.GetNetworkCredential().Username;
+		$OAuthClientSecret = $Credential.GetNetworkCredential().Password;
 	}
 	
 	$Uri = $OAuthBaseUrl.AbsoluteUri.Trim('/');
