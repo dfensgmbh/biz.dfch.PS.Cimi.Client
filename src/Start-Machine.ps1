@@ -40,13 +40,10 @@ Param
 	[Parameter(Mandatory = $false, Position = 0)]
 	$Id
 	,
-	[Parameter(Mandatory = $false, Position = 1)]
-	[switch] $Force
-	,
-	[Parameter(Mandatory = $false, Position = 2, ParameterSetName = 'async')]
+	[Parameter(Mandatory = $false, Position = 1, ParameterSetName = 'async')]
 	[switch] $Async
 	,
-	[Parameter(Mandatory = $false, Position = 2, ParameterSetName = 'sync')]
+	[Parameter(Mandatory = $false, Position = 1, ParameterSetName = 'sync')]
 	[switch] $WaitForCompletion
 	,
 	[Parameter(Mandatory = $false)]
@@ -71,7 +68,7 @@ BEGIN
 	
 	$datBegin = [datetime]::Now;
 	[string] $fn = $MyInvocation.MyCommand.Name;
-	Log-Debug $fn ("CALL. Id '{0}'; Force '{1}'; Async '{2}'." -f $Id, !!$Force, !!$Async) -fac 1;
+	Log-Debug $fn ("CALL. Id '{0}'; Async '{1}'." -f $Id, !!$Async) -fac 1;
 	
 	# Parameter validation
 	Contract-Requires ($svc -is [biz.dfch.CS.Cimi.Client.BaseCimiClient]) "Connect to the server before using the Cmdlet";
@@ -105,7 +102,7 @@ PROCESS
 		$JobTimeOut = 1;
 	}
 
-	$OutputParameter = $svc.$invokeAction($Id, !!$Force, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
+	$OutputParameter = $svc.$invokeAction($Id, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
 	$fReturn = $true;
 }
 
