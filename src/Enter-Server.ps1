@@ -116,6 +116,7 @@ try
 {
 	# Parameter validation
 	Contract-Assert(!!$AccessRefreshToken);
+	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = $null;
 	
 	if($PSCmdlet.ParameterSetName -eq 'OAuthClientCred') 
 	{
