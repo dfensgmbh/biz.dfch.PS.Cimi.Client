@@ -52,17 +52,7 @@ RequiredModules = @(
 
 # Assemblies that must be loaded prior to importing this module
 RequiredAssemblies = @(
-	'Newtonsoft.Json.dll'
-	,
-	'log4net.dll'
-	,
-	'biz.dfch.CS.System.Utilities.dll'
-	,
-	'biz.dfch.CS.Scs.Cmp.ApiBroker.Client.dll'
-	,
 	'biz.dfch.CS.Cimi.Client.dll'
-	,
-	'biz.dfch.CS.Cimi.Client.Model.dll'
 	,
 	'System.Net'
 	,
