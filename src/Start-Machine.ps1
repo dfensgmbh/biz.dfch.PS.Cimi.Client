@@ -20,7 +20,7 @@ See PARAMETER section for a description of input parameters.
 -DFTODO-
 
 .LINK
-Online Version: http://dfch.biz/biz/dfch/PS/Cimi/Client/Enter-Server/
+Online Version: http://dfch.biz/biz/dfch/PS/Cimi/Client/Start-Machine/
 
 
 .NOTES
@@ -30,7 +30,7 @@ http://dfch.biz/biz/dfch/PS/Cimi/Client/biz.dfch.PS.Cimi.Client.psd1/
 
 #>
 [CmdletBinding(
-	HelpURI = 'http://dfch.biz/biz/dfch/PS/Cimi/Client/Enter-Server/'
+	HelpURI = 'http://dfch.biz/biz/dfch/PS/Cimi/Client/Start-Machine/'
 	,
 	DefaultParameterSetName = 'sync'
 )]
@@ -73,21 +73,6 @@ BEGIN
 	# Parameter validation
 	Contract-Requires ($svc -is [biz.dfch.CS.Cimi.Client.BaseCimiClient]) "Connect to the server before using the Cmdlet";
 	Contract-Requires(!!$Id);
-}
-
-PROCESS 
-{
-	trap { Log-Exception $_; break; }
-	
-    # Default test variable for checking function response codes.
-    [Boolean] $fReturn = $false;
-    # Return values are always and only returned via OutputParameter.
-    $OutputParameter = $null;
-	
-    if(!$PSBoundParameters.ContainsKey('TenantId'))
-    {
-		$svc.TenantId = $TenantId;
-	}
 	
 	$invokeAction = 'StartMachine';
 	if($Async)
@@ -101,6 +86,21 @@ PROCESS
 		$BaseWaitingMilliseconds = 1;
 		$JobTimeOut = 1;
 	}
+	
+    if(!$PSBoundParameters.ContainsKey('TenantId'))
+    {
+		$svc.TenantId = $TenantId;
+	}
+}
+
+PROCESS 
+{
+	trap { Log-Exception $_; break; }
+	
+    # Default test variable for checking function response codes.
+    [Boolean] $fReturn = $false;
+    # Return values are always and only returned via OutputParameter.
+    $OutputParameter = $null;
 
 	$OutputParameter = $svc.$invokeAction($Id, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
 	$fReturn = $true;

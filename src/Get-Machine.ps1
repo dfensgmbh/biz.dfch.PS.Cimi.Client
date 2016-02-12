@@ -20,7 +20,7 @@ See PARAMETER section for a description of input parameters.
 -DFTODO-
 
 .LINK
-Online Version: http://dfch.biz/biz/dfch/PS/Cimi/Client/Enter-Server/
+Online Version: http://dfch.biz/biz/dfch/PS/Cimi/Client/Get-Machine/
 
 
 .NOTES
@@ -30,11 +30,10 @@ http://dfch.biz/biz/dfch/PS/Cimi/Client/biz.dfch.PS.Cimi.Client.psd1/
 
 #>
 [CmdletBinding(
-	HelpURI = 'http://dfch.biz/biz/dfch/PS/Cimi/Client/Enter-Server/'
+	HelpURI = 'http://dfch.biz/biz/dfch/PS/Cimi/Client/Get-Machine/'
 	,
 	DefaultParameterSetName = 'list'
 )]
-[OutputType([hashtable])]
 Param 
 (
 	[Parameter(Mandatory = $false, Position = 0, ParameterSetName = 'id')]
@@ -78,21 +77,6 @@ BEGIN
 	{
 		Contract-Requires(!!$Id);
 	}
-}
-
-PROCESS 
-{
-	trap { Log-Exception $_; break; }
-	
-    # Default test variable for checking function response codes.
-    [Boolean] $fReturn = $false;
-    # Return values are always and only returned via OutputParameter.
-    $OutputParameter = $null;
-	
-    if(!$PSBoundParameters.ContainsKey('TenantId'))
-    {
-		$svc.TenantId = $TenantId;
-	}
 	
 	$invokeAction = 'GetMachine';
 	if($PSCmdlet.ParameterSetName -eq 'list') 
@@ -106,7 +90,22 @@ PROCESS
 		$TotalAttempts = 1;
 		$BaseWaitingMilliseconds = 1;
 	}
+	
+    if(!$PSBoundParameters.ContainsKey('TenantId'))
+    {
+		$svc.TenantId = $TenantId;
+	}
+}
 
+PROCESS 
+{
+	trap { Log-Exception $_; break; }
+	
+    # Default test variable for checking function response codes.
+    [Boolean] $fReturn = $false;
+    # Return values are always and only returned via OutputParameter.
+    $OutputParameter = $null;
+	
 	$OutputParameter = $svc.$invokeAction($Id, $TotalAttempts, $BaseWaitingMilliseconds);
 	$fReturn = $true;
 }
