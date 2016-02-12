@@ -85,6 +85,8 @@ NestedModules = @(
 	'Get-Machine.ps1'
 	,
 	'Get-System.ps1'
+	,
+	'Update-Machine.ps1'
 )
 
 # Functions to export from this module

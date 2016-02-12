@@ -47,6 +47,7 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
     <file src="Start-Machine.ps1" target="tools\Start-Machine.ps1" />
     <file src="Get-Machine.ps1" target="tools\Get-Machine.ps1" />
     <file src="Get-System.ps1" target="tools\Get-System.ps1" />
+    <file src="Update-Machine.ps1" target="tools\Update-Machine.ps1" />
     <file src="..\LICENSE" target="tools\LICENSE" />
     <file src="..\NOTICE" target="tools\NOTICE" />
     <file src="..\README.md" target="tools\README.md" />
