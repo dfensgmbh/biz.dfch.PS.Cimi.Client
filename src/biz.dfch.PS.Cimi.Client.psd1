@@ -82,13 +82,23 @@ NestedModules = @(
 	,
 	'Stop-Machine.ps1'
 	,
-	'Stop-Machine.ps1'
+	'Start-Machine.ps1'
+	,
+	'Restart-Machine.ps1'
 	,
 	'Get-Machine.ps1'
 	,
 	'Get-System.ps1'
 	,
+	'Get-Job.ps1'
+	,
 	'Update-Machine.ps1'
+	,
+	'Get-Snapshot.ps1'
+	,
+	'Get-SnapshotTemplate.ps1'
+	,
+	'New-Snapshot.ps1'
 )
 
 # Functions to export from this module
