@@ -36,26 +36,25 @@ http://dfch.biz/biz/dfch/PS/Cimi/Client/biz.dfch.PS.Cimi.Client.psd1/
 	,
     ConfirmImpact = 'High'
 	,
-	DefaultParameterSetName = 'object'
+	DefaultParameterSetName = 'sync'
 )]
 [OutputType([hashtable])]
 Param 
 (
-	[Parameter(Mandatory = $false, Position = 0, ParameterSetName = 'id')]
-	$Id
-	,
-	[Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ParameterSetName = 'object')]
+	[Parameter(Mandatory = $false, Position = 0, ValueFromPipeline = $true)]
 	[Alias("Machine")]
-	[IO.Swagger.Model.Machine] $InputObject
+	[Alias("Id")]
+	$InputObject
 	,
 	[Parameter(Mandatory = $false, Position = 1)]
-	[switch] $Async
-	,
-	[Parameter(Mandatory = $false, Position = 2)]
-	[switch] $WaitForCompletion
-	,
-	[Parameter(Mandatory = $true, ParameterSetName = 'id')]
 	[hashtable] $Properties
+	,
+	[Parameter(Mandatory = $false, ParameterSetName = 'sync')]
+	[Parameter(Mandatory = $false, ParameterSetName = 'async')]
+	[switch] $Async = $false
+	,
+	[Parameter(Mandatory = $false, ParameterSetName = 'asjob')]
+	[switch] $StartJob = $false
 	,
 	[Parameter(Mandatory = $false)]
 	[int] $TotalAttempts = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).TotalAttempts
@@ -76,7 +75,7 @@ BEGIN
 	
 	$datBegin = [datetime]::Now;
 	[string] $fn = $MyInvocation.MyCommand.Name;
-	Log-Debug $fn ("CALL. Id '{0}'; Async '{1}'." -f $Id, !!$Async) -fac 1;
+	Log-Debug $fn ("CALL. Objects '{0}'." -f $InputObject.Count) -fac 1;
 	
 	# Parameter validation
 	Contract-Requires ($svc -is [biz.dfch.CS.Cimi.Client.BaseCimiClient]) "Connect to the server before using the Cmdlet";
@@ -85,37 +84,39 @@ BEGIN
 	if($Async)
 	{
 		$invokeAction += 'Async';
-	}
-	if($Async -or !$WaitForCompletion) 
-	{
 		$TotalAttempts = 1;
-		$BaseWaitingMilliseconds = 1;
-		$JobTimeOut = 1;
+	} elseif($StartJob)
+	{
+		$invokeAction += 'StartJob';
+		$TotalAttempts = 1;
 	}
 	
-	if(!$PSCmdlet.ParameterSetName -eq 'object') 
+	$InputObjectTemp = New-Object System.Collections.ArrayList($InputObject.Count);
+	$ids = @();
+	foreach($Object in $InputObject)
 	{
-		$InputObjectTemp = New-Object System.Collections.ArrayList($Id.Count);
-		foreach($Object in $Id)
+		if($Object -isnot [IO.Swagger.Model.Machine])
 		{
-			Contract-Requires(!!$Id);
-			Contract-Requires($Id -is [Guid]);
-			Contract-Requires(![string]::IsNullOrWhiteSpace($Id));
+			$cimiId = [Guid]::Parse($Object);
+			Contract-Requires(!!$cimiId);
+			Contract-Requires($cimiId -is [Guid]);
+			Contract-Requires(![string]::IsNullOrWhiteSpace($cimiId));
 			
-			$ObjectTemp = $svc.GetMachine($Object);
-			if(!$ObjectTemp)
-			{
-				$msg = "Id: Parameter validation FAILED. '{0}' is not a valid machine." -f $Object;
-				Log-Error $fn $msg;
-				$e = New-CustomErrorRecord -m $msg -cat ObjectNotFound -o $Object;
-				$PSCmdlet.ThrowTerminatingError($e);
-			}
+			$ObjectTemp = $svc.GetMachine($cimiId);
+			Contract-Requires(!!$ObjectTemp) "Id: Parameter validation FAILED, not a valid machine.";
 			$null = $InputObjectTemp.Add($ObjectTemp);
+			$ids += $ObjectTemp.Id.ToString();
 		}
-		$InputObject = $InputObjectTemp.ToArray();
-		Remove-Variable InputObjectTemp -ErrorAction:SilentlyContinue -Confirm:$false;
-		Remove-Variable ObjectTemp -ErrorAction:SilentlyContinue -Confirm:$false;
+		else
+		{
+			$null = $InputObjectTemp.Add($Object);
+			$ids += $Object.Id.ToString();
+		}
 	}
+	$InputObject = $InputObjectTemp.ToArray();
+	Remove-Variable InputObjectTemp -ErrorAction:SilentlyContinue -Confirm:$false;
+	Remove-Variable ObjectTemp -ErrorAction:SilentlyContinue -Confirm:$false;
+	Log-Debug $fn ("CALL. Ids [{0}]; Async '{1}'; AsJob '{2}'." -f ($ids -join ', '), !!$Async, !!$StartJob) -fac 1;
 }
 
 PROCESS 
@@ -130,19 +131,40 @@ PROCESS
 	$r = @();
 	foreach($Object in $InputObject)
 	{
-		if(!$PSCmdlet.ParameterSetName -eq 'object') 
+		if ( $PSBoundParameters.ContainsKey('Properties') )
 		{
 			$machineProperties = New-Object biz.dfch.CS.Cimi.Client.MachineProperties($Object);
 			foreach($propertyName in $Properties.Keys)
 			{
-				Log.Debug $f ("Set machine property [{0}] = '{1}'" -f $propertyName, $Properties.Item($propertyName));
+				if(!$machineProperties.$propertyName)
+				{
+					$msg = "Id: Parameter validation FAILED. '{0}' is not a valid property." -f $propertyName;
+					Log-Error $fn $msg;
+					$e = New-CustomErrorRecord -m $msg -cat ObjectNotFound -o $Properties;
+					$PSCmdlet.ThrowTerminatingError($e);
+				}
+				Log-Debug $fn ("Set machine property [{0}] = '{1}'" -f $propertyName, $Properties.Item($propertyName));
 				$machineProperties.$propertyName = $Properties.Item($propertyName);
 			}
-			$response = $svc.$invokeAction($Object, $machineProperties, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
+			if(!$StartJob)
+			{
+				$response = $svc.$invokeAction($Object.Id, $machineProperties, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
+			}
+			else
+			{
+				$response = $svc.$invokeAction($Object.Id, $machineProperties, $TotalAttempts, $BaseWaitingMilliseconds);
+			}
 		}
 		else
 		{
-			$response = $svc.$invokeAction($Object, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
+			if(!$StartJob)
+			{
+				$response = $svc.$invokeAction($Object, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
+			}
+			else
+			{
+				$response = $svc.$invokeAction($Object, $TotalAttempts, $BaseWaitingMilliseconds);
+			}
 		}
 		$r += $response;
 	}

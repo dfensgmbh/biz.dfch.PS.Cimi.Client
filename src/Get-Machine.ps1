@@ -39,11 +39,11 @@ Param
 	[Parameter(Mandatory = $false, Position = 0, ParameterSetName = 'id')]
 	$Id
 	,
-	[Parameter(Mandatory = $false, Position = 0, ParameterSetName = 'list')]
-	$SystemId
+	[Parameter(Mandatory = $false, Position = 1, ParameterSetName = 'name')]
+	$Name
 	,
-	[Parameter(Mandatory = $false, Position = 1)]
-	[switch] $WaitForCompletion
+	[Parameter(Mandatory = $false, Position = 2, ParameterSetName = 'list')]
+	$SystemId
 	,
 	# Indicates to return all file information
 	[Parameter(Mandatory = $false, ParameterSetName = 'list')]
@@ -68,30 +68,25 @@ BEGIN
 	
 	$datBegin = [datetime]::Now;
 	[string] $fn = $MyInvocation.MyCommand.Name;
-	Log-Debug $fn ("CALL. Id '{0}'; SystemId '{1}'." -f $Id, $SystemId) -fac 1;
+	Log-Debug $fn ("CALL. Id '{0}' Name '{1}'; SystemId '{2}'." -f $Id, $Name, $SystemId) -fac 1;
 	
 	# Parameter validation
 	Contract-Requires ($svc -is [biz.dfch.CS.Cimi.Client.BaseCimiClient]) "Connect to the server before using the Cmdlet";
 	
-	if(!$PSCmdlet.ParameterSetName -eq 'list') 
+	if($PSCmdlet.ParameterSetName -ne 'list') 
 	{
-		Contract-Requires(!!$Id);
+		Contract-Requires(!!$Id -or !!$Name);
 	}
 	
 	$invokeAction = 'GetMachine';
-	if($PSCmdlet.ParameterSetName -eq 'list') 
+	$collectionName = 'Machines';
+	if($PSCmdlet.ParameterSetName -ne 'id') 
 	{
 		$invokeAction += 'Collection';
 		$Id = $SystemId;
 	}
 	
-	if(!$WaitForCompletion) 
-	{
-		$TotalAttempts = 1;
-		$BaseWaitingMilliseconds = 1;
-	}
-	
-    if(!$PSBoundParameters.ContainsKey('TenantId'))
+    if($PSBoundParameters.ContainsKey('TenantId'))
     {
 		$svc.TenantId = $TenantId;
 	}
@@ -105,8 +100,13 @@ PROCESS
     [Boolean] $fReturn = $false;
     # Return values are always and only returned via OutputParameter.
     $OutputParameter = $null;
-	
-	$OutputParameter = $svc.$invokeAction($Id, $TotalAttempts, $BaseWaitingMilliseconds);
+
+	$r = $svc.$invokeAction($Id, $TotalAttempts, $BaseWaitingMilliseconds);
+	if($PSCmdlet.ParameterSetName -eq 'name') 
+	{
+		$r = $r.$collectionName | ? Name -eq $Name;
+	}
+	$OutputParameter = $r;	
 	$fReturn = $true;
 }
 

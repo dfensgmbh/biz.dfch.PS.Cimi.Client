@@ -1,4 +1,3 @@
-
 function Stop-Machine {
 <#
 .SYNOPSIS
@@ -33,25 +32,29 @@ http://dfch.biz/biz/dfch/PS/Cimi/Client/biz.dfch.PS.Cimi.Client.psd1/
 [CmdletBinding(
 	HelpURI = 'http://dfch.biz/biz/dfch/PS/Cimi/Client/Stop-Machine/'
 	,
+    SupportsShouldProcess = $true
+	,
+    ConfirmImpact = 'High'
+	,
 	DefaultParameterSetName = 'sync'
 )]
 [OutputType([hashtable])]
 Param 
 (
-	[Parameter(Mandatory = $false, Position = 0)]
-	$Id
+	[Parameter(Mandatory = $false, Position = 0, ValueFromPipeline = $true)]
+	[Alias("Machine")]
+	[Alias("Id")]
+	$InputObject
 	,
 	[Parameter(Mandatory = $false, Position = 1)]
-	[switch] $Force
+	[switch] $Force = $false
 	,
-	[Parameter(Mandatory = $false, Position = 2, ParameterSetName = 'async')]
-	[switch] $Async
+	[Parameter(Mandatory = $false, ParameterSetName = 'sync')]
+	[Parameter(Mandatory = $false, ParameterSetName = 'async')]
+	[switch] $Async = $false
 	,
-	[Parameter(Mandatory = $false, Position = 2, ParameterSetName = 'sync')]
-	[switch] $WaitForCompletion
-	,
-	[Parameter(Mandatory = $false)]
-	$TenantId
+	[Parameter(Mandatory = $false, ParameterSetName = 'asjob')]
+	[switch] $StartJob = $false
 	,
 	[Parameter(Mandatory = $false)]
 	[int] $TotalAttempts = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).TotalAttempts
@@ -72,29 +75,48 @@ BEGIN
 	
 	$datBegin = [datetime]::Now;
 	[string] $fn = $MyInvocation.MyCommand.Name;
-	Log-Debug $fn ("CALL. Id '{0}'; Force '{1}'; Async '{2}'." -f $Id, !!$Force, !!$Async) -fac 1;
+	Log-Debug $fn ("CALL. Objects '{0}'." -f $InputObject.Count) -fac 1;
 	
 	# Parameter validation
 	Contract-Requires ($svc -is [biz.dfch.CS.Cimi.Client.BaseCimiClient]) "Connect to the server before using the Cmdlet";
-	Contract-Requires(!!$Id);
 	
 	$invokeAction = 'StopMachine';
 	if($Async)
 	{
 		$invokeAction += 'Async';
-	}
-	
-	if($Async -or !$WaitForCompletion) 
-	{
 		$TotalAttempts = 1;
-		$BaseWaitingMilliseconds = 1;
-		$JobTimeOut = 1;
+	} elseif($StartJob)
+	{
+		$invokeAction += 'StartJob';
+		$TotalAttempts = 1;
 	}
 	
-    if(!$PSBoundParameters.ContainsKey('TenantId'))
-    {
-		$svc.TenantId = $TenantId;
-	}	
+	$InputObjectTemp = New-Object System.Collections.ArrayList($InputObject.Count);
+	$ids = @();
+	foreach($Object in $InputObject)
+	{
+		if($Object -isnot [IO.Swagger.Model.Machine])
+		{
+			$cimiId = [Guid]::Parse($Object);
+			Contract-Requires(!!$cimiId);
+			Contract-Requires($cimiId -is [Guid]);
+			Contract-Requires(![string]::IsNullOrWhiteSpace($cimiId));
+			
+			$ObjectTemp = $svc.GetMachine($cimiId);
+			Contract-Requires(!!$ObjectTemp) "Id: Parameter validation FAILED, not a valid machine.";
+			$null = $InputObjectTemp.Add($ObjectTemp);
+			$ids += $ObjectTemp.Id.ToString();
+		}
+		else
+		{
+			$null = $InputObjectTemp.Add($Object);
+			$ids += $Object.Id.ToString();
+		}
+	}
+	$InputObject = $InputObjectTemp.ToArray();
+	Remove-Variable InputObjectTemp -ErrorAction:SilentlyContinue -Confirm:$false;
+	Remove-Variable ObjectTemp -ErrorAction:SilentlyContinue -Confirm:$false;
+	Log-Debug $fn ("CALL. Ids [{0}]; Async '{1}'; AsJob '{2}'." -f ($ids -join ', '), !!$Async, !!$StartJob) -fac 1;
 }
 
 PROCESS 
@@ -106,7 +128,20 @@ PROCESS
     # Return values are always and only returned via OutputParameter.
     $OutputParameter = $null;
 
-	$OutputParameter = $svc.$invokeAction($Id, !!$Force, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
+	$r = @();
+	foreach($Object in $InputObject)
+	{
+		if(!$StartJob)
+		{
+			$response = $svc.$invokeAction($Object.Id, !!$Force, $TotalAttempts, $BaseWaitingMilliseconds, $JobTimeOut);
+		}
+		else
+		{
+			$response = $svc.$invokeAction($Object.Id, !!$Force, $TotalAttempts, $BaseWaitingMilliseconds);
+		}
+		$r += $response;
+	}
+	$OutputParameter = $r;
 	$fReturn = $true;
 }
 
