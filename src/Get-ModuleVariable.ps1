@@ -1,157 +1,25 @@
-#
-# Module manifest for module 'biz.dfch.PS.Cimi.Client'
-#
-
-@{
-
-# Script module or binary module file associated with this manifest.
-RootModule = 'biz.dfch.PS.Cimi.Client.psm1'
-
-# Version number of this module.
-ModuleVersion = '1.1.1.20160217'
-
-# ID used to uniquely identify this module
-GUID = 'fbedfa51-f3cf-457c-9aa3-b998dc54d07b'
-
-# Author of this module
-Author = 'Ronald Rink'
-
-# Company or vendor of this module
-CompanyName = 'd-fens GmbH'
-
-# Copyright statement for this module
-Copyright = '(c) 2015 d-fens GmbH. Distributed under Apache 2.0 license.'
-
-# Description of the functionality provided by this module
-Description = 'PowerShell module for the Cimi Framework and Middleware'
-
-# Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '3.0'
-
-# Name of the Windows PowerShell host required by this module
-# PowerShellHostName = ''
-
-# Minimum version of the Windows PowerShell host required by this module
-# PowerShellHostVersion = ''
-
-# Minimum version of the .NET Framework required by this module
-DotNetFrameworkVersion = '4.5'
-
-# Minimum version of the common language runtime (CLR) required by this module
-# CLRVersion = ''
-
-# Processor architecture (None, X86, Amd64) required by this module
-# ProcessorArchitecture = ''
-
-# Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(
-	'biz.dfch.PS.System.Logging'
+function Get-ModuleVariable {
+[CmdletBinding(
+    SupportsShouldProcess = $false
 	,
-	'biz.dfch.PS.System.Utilities'
+    ConfirmImpact = 'Low'
+	,
+	HelpURI = 'http://dfch.biz/PS/Appclusive/Client/Get-ModuleVariable/'
+)]
+[OutputType([hashtable])]
+PARAM
+(
+	# Specifies a references to the Appclusive endpoints
+	[Parameter(Mandatory = $false)]
+	[hashtable] $InputObject = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly)
 )
 
-# Assemblies that must be loaded prior to importing this module
-RequiredAssemblies = @(
-	'biz.dfch.CS.Cimi.Client.dll'
-	,
-	'System.Net'
-	,
-	'System.Web'
-	,
-	'System.Web.Extensions'
-)
-
-# Script files (.ps1) that are run in the caller's environment prior to importing this module.
-ScriptsToProcess = @(
-	'Import-Module.ps1'
-)
-
-# ModuleToProcess = @()
-
-# Type files (.ps1xml) to be loaded when importing this module
-# TypesToProcess = @()
-
-# Format files (.ps1xml) to be loaded when importing this module
-# FormatsToProcess = @()
-
-# Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-NestedModules = @(
-	'Enter-Server.ps1'
-	,
-	'Get-ModuleVariable.ps1'
-	,
-	'Stop-Machine.ps1'
-	,
-	'Stop-Machine.ps1'
-	,
-	'Get-Machine.ps1'
-	,
-	'Get-System.ps1'
-	,
-	'Update-Machine.ps1'
-)
-
-# Functions to export from this module
-FunctionsToExport = '*'
-
-# Cmdlets to export from this module
-CmdletsToExport = '*'
-
-# Variables to export from this module
-VariablesToExport = '*'
-
-# Aliases to export from this module
-AliasesToExport = '*'
-
-# List of all modules packaged with this module.
-# ModuleList = @()
-
-# List of all files packaged with this module
-FileList = @(
-	'LICENSE'
-	,
-	'NOTICE'
-	,
-	'README.md'
-	,
-	'biz.dfch.CS.Cimi.Client.dll'
-	,
-	'biz.dfch.PS.Cimi.Client.xml'
-	,
-	'biz.dfch.CS.Cimi.Client.Model.dll'
-	,
-	'Newtonsoft.Json.dll'
-	,
-	'Newtonsoft.Json.xml'
-	,
-	'log4net.dll'
-	,
-	'log4net.xml'
-	,
-	'biz.dfch.CS.System.Utilities.dll'
-	,
-	'biz.dfch.CS.Scs.Cmp.ApiBroker.Client.dll'
-	,
-	'biz.dfch.CS.Cimi.Client.dll'
-	,
-	'Import-Module.ps1'
-)
-
-# Private data to pass to the module specified in RootModule/ModuleToProcess
-PrivateData = @{
-	"MODULEVAR" = "biz_dfch_PS_Cimi_Client"
-}
-
-# HelpInfo URI of this module
-HelpInfoURI = 'http://dfch.biz/biz/dfch/PS/Cimi/Client/'
-
-# Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
-DefaultCommandPrefix = 'Cimi'
-
+	$OutputParameter = $InputObject;
+	return $OutputParameter;
 }
 
 # 
-# Copyright 2014-2015 d-fens GmbH
+# Copyright 2015 d-fens GmbH
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -166,11 +34,12 @@ DefaultCommandPrefix = 'Cimi'
 # limitations under the License.
 # 
 
+
 # SIG # Begin signature block
 # MIIXDwYJKoZIhvcNAQcCoIIXADCCFvwCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUiXX6+mHSJnlEtTFniRlNHyiz
-# nqGgghHCMIIEFDCCAvygAwIBAgILBAAAAAABL07hUtcwDQYJKoZIhvcNAQEFBQAw
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUkkHs7+JjMOAJOiFawuwmKCAu
+# ml+gghHCMIIEFDCCAvygAwIBAgILBAAAAAABL07hUtcwDQYJKoZIhvcNAQEFBQAw
 # VzELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYtc2ExEDAOBgNV
 # BAsTB1Jvb3QgQ0ExGzAZBgNVBAMTEkdsb2JhbFNpZ24gUm9vdCBDQTAeFw0xMTA0
 # MTMxMDAwMDBaFw0yODAxMjgxMjAwMDBaMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
@@ -269,26 +138,26 @@ DefaultCommandPrefix = 'Cimi'
 # MDAuBgNVBAMTJ0dsb2JhbFNpZ24gQ29kZVNpZ25pbmcgQ0EgLSBTSEEyNTYgLSBH
 # MgISESENFrJbjBGW0/5XyYYR5rrZMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEM
 # MQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQB
-# gjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBQQ+Tkk8Zv5jvJq
-# GcHFqmdu6XE0nDANBgkqhkiG9w0BAQEFAASCAQACULt7UH5bZeR1YjHrDifidhbc
-# Wcke9MwmAhQlSfQd59NbcZF/9ZpR/3b2HNRrwSHA6w6AzWyoCbdPLv0PRvQyL/uR
-# a0jumM5Mec8PDld0QmD+BKal7nxbgiQ3527kQCzkIU+ZRB+zgJs9SBbg3UAJ2vhs
-# 7M7Uhn5eZW1j+RITXPbYORGL2c/lY4S5Bn2Q3vRFwVJ9DwVYoNctoTLRnCp9786m
-# L8IcIpNvRQDI35fr2iWGftiasqfmiDaM3VFohdi42zZPCSICi6ThX7NgQl5TSDtD
-# UnMnC+h6DopawtXuVamurzPreBhKWiMIOW1/wi107cd4p0/a1NrlUtuM8wBvoYIC
+# gjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBSm80EhFNKfairW
+# WPxtAl71a7Kj3DANBgkqhkiG9w0BAQEFAASCAQAUYG06TWm49dkBAo/6oLePB2Kn
+# xSEBakh73UEL3qOPEJGowo3O0S1ieffru/Z0WVt3NBTgprk9R11zhJpNH2FYVRY5
+# ApGrEbTpMHRKy1F/vVQUZIL9EwWg0EMyg7XdiA0q+1Gbmbu8OKoKvESQXfeAwFXl
+# GG2NVAQsoIKsrpaXihPyA0fR2wmM9913K2nzFdDCzjKHmZQw2DcNbyCD/VFqxzhu
+# nKFY0s9JzZtjx7+w0DLglAzfai+0wbHpbfNr7BkdRKG8sLHoj9pXu59XOUrwOoYi
+# U5Xojsgf48JWhhtYTy7hNi2/OcwhKJTqwC8n7HYyP88ABtU43mX4IXSX+g5HoYIC
 # ojCCAp4GCSqGSIb3DQEJBjGCAo8wggKLAgEBMGgwUjELMAkGA1UEBhMCQkUxGTAX
 # BgNVBAoTEEdsb2JhbFNpZ24gbnYtc2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gVGlt
 # ZXN0YW1waW5nIENBIC0gRzICEhEhBqCB0z/YeuWCTMFrUglOAzAJBgUrDgMCGgUA
 # oIH9MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTE1
-# MTIyMjE1MDExNVowIwYJKoZIhvcNAQkEMRYEFIuXxHs1f1h46SHaKHMJXtTdluqb
+# MTEyNDA3MTkyOVowIwYJKoZIhvcNAQkEMRYEFNcyg+PCoVsH7l893JKiM9Ktkw3r
 # MIGdBgsqhkiG9w0BCRACDDGBjTCBijCBhzCBhAQUs2MItNTN7U/PvWa5Vfrjv7Es
 # KeYwbDBWpFQwUjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYt
 # c2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gVGltZXN0YW1waW5nIENBIC0gRzICEhEh
-# BqCB0z/YeuWCTMFrUglOAzANBgkqhkiG9w0BAQEFAASCAQA1YLfezZpO2GrKbwts
-# PYRAGEJAb1x4u2pf/WCcg4KAjGzO8BbNClDDsDp/+tnxsHhtbaFvy1OljJfnegO7
-# LFvhI8cmOrzcHOOgCTK2HQr3HJ6euH/w4bSKIte5u2hoEKBnmsPT++ahZg/KGRlJ
-# xQqm0+TNdhRWXu+mSn2sIj/jQQ5eZwMJzSgN/YPgYTEjalPelo3KgZA2ocsYz3xE
-# vjeb98lYY4HccPtFcoMBRs9T9Y5u7FHSL9h6B11YLzd6wPUhPt/4HmAA3BOMIKfO
-# 6HsZwgyLjapEk81LFhzuRjaqI8pj2vZTYt/AdGAsSDIw5u9yqZhPvcMhv4zsSQIm
-# 4fd4
+# BqCB0z/YeuWCTMFrUglOAzANBgkqhkiG9w0BAQEFAASCAQA5gaiJRhZ8avQDW9vo
+# 2BLnYaooNoNaa2yMfT4GMiJrPbb3eYB2lhIupmKQtBG2G9O877bkzkSQtNtwOQN9
+# N3dp7y2lNmXDQs0vSxUE7crZefXOda9LKdKrRHXcUpibmfq7eWVbLoQvwat/ieY8
+# bH5W2xAffmX1PvbYN4N2/2HoetoLjiUPYofuKurHbBU6l39O8kdKxZZ5NPkLFeiS
+# Tusf4qQoSz2/KbcPF5e16prr4QmW2sGOmhfWLbt/pNJ0hX5UiXbnbB6rdRvjWc59
+# /CMzYvnNvjtDcMGndjV77L182UQ1jCpRFbHQXobT64edtfE3910G3aXyODv6sVdS
+# 0BUv
 # SIG # End signature block

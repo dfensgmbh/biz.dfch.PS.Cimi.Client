@@ -42,6 +42,8 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
     <file src="biz.dfch.PS.Cimi.Client.psd1" target="tools\biz.dfch.PS.Cimi.Client.psd1" />
     <file src="biz.dfch.PS.Cimi.Client.xml" target="tools\biz.dfch.PS.Cimi.Client.xml" />
     <file src="Install.ps1" target="Install.ps1" />
+    <file src="Import-Module.ps1" target="tools\Import-Module.ps1" />
+    <file src="Get-ModuleVariable.ps1" target="tools\Get-ModuleVariable.ps1" />
     <file src="Enter-Server.ps1" target="tools\Enter-Server.ps1" />
     <file src="Stop-Machine.ps1" target="tools\Stop-Machine.ps1" />
     <file src="Start-Machine.ps1" target="tools\Start-Machine.ps1" />
