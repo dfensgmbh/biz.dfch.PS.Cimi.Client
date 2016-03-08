@@ -50,7 +50,7 @@ Describe -Tags "Module-Tests" "Module-Tests" {
 	
 	Context "#CLOUDTCL-????-EnterServer" {
 		
-		It "Enter-ServerWithParams-ShouldFailed" -Test{
+		It "Enter-ServerWithoutParams-ShouldFailed" -Test{
 			# Arrange
 			# N/A
 			
