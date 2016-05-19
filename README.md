@@ -14,3 +14,7 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 * Get it on [NuGet](https://www.nuget.org/packages/biz.dfch.PS.Cimi.Client/)
 
 * See [Releases](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/releases) and [Tags](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/tags) on [GitHub](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client)
+
+[![TeamCity Logo](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/blob/develop/TeamCity.png)](https://www.jetbrains.com/teamcity/)
+
+Released with TeamCity
