@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>biz.dfch.PS.Cimi.Client</id>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <title>biz.dfch.PS.Cimi.Client</title>
     <authors>d-fens GmbH</authors>
     <owners>Ronald Rink</owners>
@@ -25,8 +25,8 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 * See [Releases](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/releases) and [Tags](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/tags) on [GitHub](https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client)
 </description>
     <summary>Powershell client for the Swisscom Enterprise Cloud CIMI API</summary>
-    <releaseNotes>20160317
-* Typo bug in Install.ps1 fixed
+    <releaseNotes>20160523
+* Support OAuth2 token on Enter-Server
 * Installation base path is '$env:ProgramFiles\WindowsPowerShell\Modules' and can be manually set as input parameter</releaseNotes>
     <copyright>(c) 2016 d-fens GmbH</copyright>
     <language>en-US</language>

@@ -8,7 +8,7 @@
 RootModule = 'biz.dfch.PS.Cimi.Client.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.2.1.20160317'
+ModuleVersion = '1.2.2.20160523'
 
 # ID used to uniquely identify this module
 GUID = 'fbedfa51-f3cf-457c-9aa3-b998dc54d07b'
