@@ -80,8 +80,13 @@ Param
 	[Parameter(Mandatory = $false, Position = 3, ParameterSetName = 'OAuthClientSecrect')]
 	[string] $OAuthClientSecret
 	,
-	[Parameter(Mandatory = $false, Position = 4)]
+	[Parameter(Mandatory = $false, Position = 4, ParameterSetName = 'OAuthClientSecrect')]
+	[Parameter(ParameterSetName = "OAuthClientCred")]
 	[string] $AccessRefreshToken = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).AccessRefreshToken
+	,
+	[Parameter(Mandatory = $true, Position = 2, ParameterSetName = 'OAuthToken')]
+	[alias("BearerToken")]
+	[string] $OAuthToken
 	,
 	[Parameter(Mandatory = $false, Position = 5)]
 	$TenantId = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).TenantId
@@ -115,7 +120,6 @@ Process
 try 
 {
 	# Parameter validation
-	Contract-Assert(!!$AccessRefreshToken);
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = $null;
 	
 	if($PSCmdlet.ParameterSetName -eq 'OAuthClientCred') 
@@ -125,12 +129,22 @@ try
 		$OAuthClientSecret = $Credential.GetNetworkCredential().Password;
 	}
 	
-	$Uri = $OAuthBaseUrl.AbsoluteUri.Trim('/');
-	$Username = $OAuthClientId;
-	#$o = New-Object biz.dfch.CS.Cimi.Client.$CimiVersion.CimiClient;
-	$o = [biz.dfch.CS.Cimi.Client.CimiClientFactory]::GetByVersion($CimiVersion);
-	$o.JobTimeOut = $JobTimeOut;
-	$c = $o.Login($Uri, $Username, $OAuthClientSecret, $AccessRefreshToken, $ApiBrokerBaseUrl.AbsoluteUri.Trim('/'), $TenantId, $TotalAttempts, $BaseWaitingMilliseconds);
+	if($PSCmdlet.ParameterSetName -eq 'OAuthToken') 
+	{
+		$o = [biz.dfch.CS.Cimi.Client.CimiClientFactory]::GetByVersion($CimiVersion);
+		$o.JobTimeOut = $JobTimeOut;
+		$c = $o.Login($OAuthToken, $ApiBrokerBaseUrl.AbsoluteUri.Trim('/'), $TenantId, $TotalAttempts, $BaseWaitingMilliseconds);
+	}
+	else
+	{
+		Contract-Assert(!!$AccessRefreshToken);
+		$Uri = $OAuthBaseUrl.AbsoluteUri.Trim('/');
+		$Username = $OAuthClientId;
+		$o = [biz.dfch.CS.Cimi.Client.CimiClientFactory]::GetByVersion($CimiVersion);
+		$o.JobTimeOut = $JobTimeOut;
+		$c = $o.Login($Uri, $Username, $OAuthClientSecret, $AccessRefreshToken, $ApiBrokerBaseUrl.AbsoluteUri.Trim('/'), $TenantId, $TotalAttempts, $BaseWaitingMilliseconds);
+	}
+
 	(Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).CloudEntryPoint = $c;
 	(Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).Service = $o;
 
