@@ -27,14 +27,16 @@ OAuthBaseUrl                       : https://cimi/openam/oauth2
 ApiBrokerBaseUrl                   : https://cimi
 OAuthClientId                      : ClientId
 OAuthClientSecret                  : ClientSecret
+BearerToken                        : 11111111-1111-1111-1111-111111111111
 TenantId                           : 11111111-1111-1111-1111-111111111111
 TotalAttempts                      : 5
 BaseWaitIntervalMilliseconds       : 5000
 JobTotalAttempts                   : 5
 BaseJobWaitIntervalMilliseconds    : 5000
 BaseJobPollingInbervalMilliseconds : 5000
-JobTimeOut                         : 3600000
+JobTimeOut                         : 10000
 IsLoggedIn                         : True
+LastJobResult                      :
 
 Perform a login to an Cimi server with default credentials (current user) and against server defined within module configuration xml file.
 
