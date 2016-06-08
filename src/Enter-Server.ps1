@@ -27,14 +27,16 @@ OAuthBaseUrl                       : https://cimi/openam/oauth2
 ApiBrokerBaseUrl                   : https://cimi
 OAuthClientId                      : ClientId
 OAuthClientSecret                  : ClientSecret
+BearerToken                        : 11111111-1111-1111-1111-111111111111
 TenantId                           : 11111111-1111-1111-1111-111111111111
 TotalAttempts                      : 5
 BaseWaitIntervalMilliseconds       : 5000
 JobTotalAttempts                   : 5
 BaseJobWaitIntervalMilliseconds    : 5000
 BaseJobPollingInbervalMilliseconds : 5000
-JobTimeOut                         : 3600000
+JobTimeOut                         : 10000
 IsLoggedIn                         : True
+LastJobResult                      :
 
 Perform a login to an Cimi server with default credentials (current user) and against server defined within module configuration xml file.
 
@@ -59,7 +61,8 @@ Param
 (
 	# [Optional] The OAuthBaseUrl such as 'https://cimi/'. If you do not 
 	# specify this value it is taken from the module configuration file.
-	[Parameter(Mandatory = $false, Position = 0)]
+	[Parameter(Mandatory = $false, Position = 0, ParameterSetName = 'OAuthClientSecrect')]
+	[Parameter(ParameterSetName = "OAuthClientCred")]
 	[Uri] $OAuthBaseUrl = (Get-Variable -Name $MyInvocation.MyCommand.Module.PrivateData.MODULEVAR -ValueOnly).OAuthBaseUrl
 	,
 	# [Optional] The ApiBrokerBaseUrl such as 'https://cimiapibroker/'. If you do not 
@@ -108,7 +111,7 @@ Begin
 {
 	$datBegin = [datetime]::Now;
 	[string] $fn = $MyInvocation.MyCommand.Name;
-	Log-Debug $fn ("CALL. OAuthBaseUrl '{0}'; ApiBrokerBaseUrl '{1}'. Username '{2}'" -f $OAuthBaseUrl, $ApiBrokerBaseUrl, $Credential.Username ) -fac 1;
+	Log-Debug $fn ("CALL. ApiBrokerBaseUrl '{0}'; OAuthBaseUrl '{1}'; Username '{2}'; OAuthClientId '{3}'; TenantId '{4}'." -f $ApiBrokerBaseUrl, $OAuthBaseUrl, $Credential.Username, $OAuthClientId, $TenantId ) -fac 1;
 }
 # Begin 
 
