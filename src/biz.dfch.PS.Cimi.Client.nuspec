@@ -67,8 +67,8 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 	<file src="..\packages\log4net.2.0.5\lib\net40-full\log4net.dll" target="tools\log4net.dll" />
 	<file src="..\packages\log4net.2.0.5\lib\net40-full\log4net.xml" target="tools\log4net.xml" />
 	<file src="..\packages\biz.dfch.CS.System.Utilities.2.0.1\lib\biz.dfch.CS.System.Utilities.dll" target="tools\biz.dfch.CS.System.Utilities.dll" />
-	<file src="..\packages\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.1.0.9\lib\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.dll" target="tools\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.dll" />
-	<file src="..\packages\biz.dfch.CS.Cimi.Client.1.5.2\lib\biz.dfch.CS.Cimi.Client.dll" target="tools\biz.dfch.CS.Cimi.Client.dll" />
-	<file src="..\packages\biz.dfch.CS.Cimi.Client.1.5.2\lib\biz.dfch.CS.Cimi.Client.Model.dll" target="tools\biz.dfch.CS.Cimi.Client.Model.dll" />
+	<file src="..\packages\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.1.0.10\lib\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.dll" target="tools\biz.dfch.CS.Scs.Cmp.ApiBroker.Client.dll" />
+	<file src="..\packages\biz.dfch.CS.Cimi.Client.1.5.4\lib\biz.dfch.CS.Cimi.Client.dll" target="tools\biz.dfch.CS.Cimi.Client.dll" />
+	<file src="..\packages\biz.dfch.CS.Cimi.Client.1.5.4\lib\biz.dfch.CS.Cimi.Client.Model.dll" target="tools\biz.dfch.CS.Cimi.Client.Model.dll" />
   </files>
 </package>
