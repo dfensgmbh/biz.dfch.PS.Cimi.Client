@@ -149,6 +149,34 @@ FileList = @(
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess
 PrivateData = @{
+
+	PSData = @{
+
+        # Tags applied to this module. These help with module discovery in online galleries.
+        Tags = @("dfch", "PowerShell", "Cimi")
+		
+        # A URL to the license for this module.
+        LicenseUri = 'https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client/blob/master/LICENSE'
+		
+        # A URL to the main website for this project.
+        ProjectUri = 'https://github.com/dfensgmbh/biz.dfch.PS.Cimi.Client'
+		
+        # A URL to an icon representing this module.
+        IconUri = 'https://raw.githubusercontent.com/dfensgmbh/biz.dfch.PS.Cimi.Client/master/logo-32x32.png'
+		
+        # ReleaseNotes of this module
+        ReleaseNotes = '20160716
+			**Features**
+			* Updated biz.dfch.CS.Cimi client to version 1.5.4
+			  * Added GetMachineImages
+			  * enhanced logging of AggregateExceptions in underlying ApiBroker (regarding use of SSL connection errors)
+			* updated biz.dfch.PS.System.Logging to 1.3.1
+			* updated biz.dfch.PS.System.Utilities to 1.1.0
+			* Installation base path is "$env:ProgramFiles\WindowsPowerShell\Modules" and can be manually set as input parameter'
+
+    } 
+
+
 	"MODULEVAR" = "biz_dfch_PS_Cimi_Client"
 }
 
