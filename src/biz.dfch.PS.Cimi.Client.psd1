@@ -8,7 +8,7 @@
 RootModule = 'biz.dfch.PS.Cimi.Client.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.5.4.20160716'
+ModuleVersion = '2.0.0.20160912'
 
 # ID used to uniquely identify this module
 GUID = 'fbedfa51-f3cf-457c-9aa3-b998dc54d07b'
@@ -165,11 +165,11 @@ PrivateData = @{
         IconUri = 'https://raw.githubusercontent.com/dfensgmbh/biz.dfch.PS.Cimi.Client/master/logo-32x32.png'
 		
         # ReleaseNotes of this module
-        ReleaseNotes = '20160716
+        ReleaseNotes = '20160912
 			**Features**
-			* Updated biz.dfch.CS.Cimi client to version 1.5.4
-			  * Added GetMachineImages
-			  * enhanced logging of AggregateExceptions in underlying ApiBroker (regarding use of SSL connection errors)
+			* Updated biz.dfch.CS.Cimi client to version 2.0.0
+  				* Upgrade to CMP 1.6.3
+  				* Added several new functions
 			* updated biz.dfch.PS.System.Logging to 1.3.1
 			* updated biz.dfch.PS.System.Utilities to 1.1.0
 			* Installation base path is "$env:ProgramFiles\WindowsPowerShell\Modules" and can be manually set as input parameter'
