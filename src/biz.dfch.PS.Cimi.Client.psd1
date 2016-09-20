@@ -8,7 +8,7 @@
 RootModule = 'biz.dfch.PS.Cimi.Client.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.0.0.20160912'
+ModuleVersion = '2.1.1.20160920'
 
 # ID used to uniquely identify this module
 GUID = 'fbedfa51-f3cf-457c-9aa3-b998dc54d07b'
@@ -165,9 +165,9 @@ PrivateData = @{
         IconUri = 'https://raw.githubusercontent.com/dfensgmbh/biz.dfch.PS.Cimi.Client/master/logo-32x32.png'
 		
         # ReleaseNotes of this module
-        ReleaseNotes = '20160912
+        ReleaseNotes = '20160920
 			**Features**
-			* Updated biz.dfch.CS.Cimi client to version 2.0.0
+			* Updated biz.dfch.CS.Cimi client to version 2.1.1
   				* Upgrade to CMP 1.6.3
   				* Added several new functions
 			* updated biz.dfch.PS.System.Logging to 1.3.1
