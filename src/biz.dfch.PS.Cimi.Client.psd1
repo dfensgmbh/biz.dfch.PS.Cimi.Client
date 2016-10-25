@@ -8,7 +8,7 @@
 RootModule = 'biz.dfch.PS.Cimi.Client.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.1.3.20161011'
+ModuleVersion = '2.2.0.20161025'
 
 # ID used to uniquely identify this module
 GUID = 'fbedfa51-f3cf-457c-9aa3-b998dc54d07b'
@@ -165,12 +165,10 @@ PrivateData = @{
         IconUri = 'https://raw.githubusercontent.com/dfensgmbh/biz.dfch.PS.Cimi.Client/master/logo-32x32.png'
 		
         # ReleaseNotes of this module
-        ReleaseNotes = '20160927
-			**Features**
-			* Updated biz.dfch.CS.Cimi client to version 2.1.3
-			* Updated biz.dfch.PS.System.Logging to 1.3.1
-			* Updated biz.dfch.PS.System.Utilities to 1.1.0
-			* Installation base path is "$env:ProgramFiles\WindowsPowerShell\Modules" and can be manually set as input parameter'
+        ReleaseNotes = '20161025
+**Features**
+* Updated biz.dfch.CS.Cimi client to version 2.2.0
+* Installation base path is '$env:ProgramFiles\WindowsPowerShell\Modules' and can be manually set as input paramet'
 
     } 
 
