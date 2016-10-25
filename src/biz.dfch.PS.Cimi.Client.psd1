@@ -168,7 +168,7 @@ PrivateData = @{
         ReleaseNotes = '20161025
 **Features**
 * Updated biz.dfch.CS.Cimi client to version 2.2.0
-* Installation base path is '$env:ProgramFiles\WindowsPowerShell\Modules' and can be manually set as input paramet'
+* Installation base path is "$env:ProgramFiles\WindowsPowerShell\Modules" and can be manually set as input parameter'
 
     } 
 
